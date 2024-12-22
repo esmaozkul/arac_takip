@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Tracking System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 50px;
+            max-width: 600px;
+        }
+        .upload-section {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .video-section {
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Vehicle Tracking System</h1>
+        <div class="upload-section">
+            <form id="uploadForm">
+                <div class="mb-3">
+                    <label for="videoFile" class="form-label">Upload a Video</label>
+                    <input type="file" class="form-control" id="videoFile" name="file" accept="video/*" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Upload and Process</button>
+            </form>
+        </div>
+        <div class="video-section text-center d-none" id="videoResult">
+            <h4 class="mt-4">Processed Video</h4>
+            <video id="outputVideo" controls style="width: 100%; max-height: 400px;"></video>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#uploadForm").on("submit", function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+
+                $.ajax({
+                    url: "/upload",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.video_url) {
+                            $("#videoResult").removeClass("d-none");
+                            $("#outputVideo").attr("src", response.video_url);
+                        } else {
+                            alert(response.error || "Something went wrong!");
+                        }
+                    },
+                    error: function () {
+                        alert("Failed to upload or process the video. Please try again.");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
