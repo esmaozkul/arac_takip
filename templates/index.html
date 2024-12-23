@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Yükleme ve Takip</title>
+    <style>
+        body {
+            /* Arka plan olarak GIF ekleniyor */
+            background: url('arac_takip/templates/Traffic_light-2.gif') no-repeat center center fixed;
+            background-size: cover; /* Arka planı ekran boyutuna uyumlu yap */
+            background-position: center center; /* Resmi ortala */
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Sayfa yüksekliği %100 */
+            width: 100vw; /* Sayfa genişliği %100 */
+            color: #fff;
+            overflow: hidden; /* Taşmaların görünmemesi için */
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7); /* Daha koyu ve şeffaf arka plan */
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            text-align: center;
+            width: 80%;
+            max-width: 700px; /* Paneli büyüttük */
+            z-index: 1; /* Panelin ön planda olmasını sağlar */
+        }
+
+        h1 {
+            font-size: 3em; /* Başlık boyutunu büyüttük */
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        label {
+            font-size: 1.5em; /* Etiket boyutunu büyüttük */
+            margin-bottom: 20px;
+            display: block;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        input[type="file"] {
+            margin: 25px 0;
+            padding: 15px;
+            font-size: 1.3em; /* Daha büyük font */
+            border: none;
+            border-radius: 15px;
+            background-color: #fff;
+            color: #333;
+            transition: transform 0.3s;
+        }
+
+        input[type="file"]:hover {
+            transform: scale(1.05);
+        }
+
+        button {
+            background-color: #ff5733;
+            color: #fff;
+            font-size: 1.5em; /* Buton boyutunu büyüttük */
+            border: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #c70039;
+            transform: scale(1.1);
+        }
+
+        .loading {
+            margin-top: 30px;
+            font-size: 1.5em;
+            display: none;
+        }
+
+        /* Araç ikonunun stilini ekliyoruz */
+        .car-icon {
+            font-size: 6em; /* İkonu daha büyük yaptık */
+            margin-top: 30px;
+            animation: moveCar 3s linear infinite;
+        }
+
+        /* Araç ikonunun hareket etmesi için animasyon */
+        @keyframes moveCar {
+            0% {
+                transform: translateX(-100px);
+            }
+            50% {
+                transform: translateX(100px);
+            }
+            100% {
+                transform: translateX(-100px);
+            }
+        }
+
+        .car-loading-text {
+            font-size: 2em; /* Metin boyutunu büyüttük */
+            margin-top: 15px;
+        }
+    </style>
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Araç Takip Sistemi</h1>
+        <form action="/process" method="post" enctype="multipart/form-data" onsubmit="showLoading()">
+            <label for="video">Video Seçin:</label>
+            <input type="file" name="video" id="video" accept="video/mp4" required>
+            <button type="submit">Yükle ve İşle</button>
+            <div id="loading" class="loading">
+                <div class="car-icon">🚗</div>
+                <div class="car-loading-text">Takip Başlatılıyor... Lütfen Bekleyin!</div>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
