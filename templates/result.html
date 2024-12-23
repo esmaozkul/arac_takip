@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İşlenmiş Video</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+            text-align: center;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border: 5px solid #ff5733;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            margin-top: 30px;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 30px;
+            background-color: #ff5733;
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2em;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            background-color: #c70039;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Takip Video</h1>
+        <video controls>
+            <source src="{{ url_for('static', filename=processed_video) }}" type="video/mp4">
+            Tarayıcınız bu videoyu desteklemiyor.
+        </video>
+        <br>
+        <a href="/">Yeni bir video yükle</a>
+    </div>
+</body>
+</html>
